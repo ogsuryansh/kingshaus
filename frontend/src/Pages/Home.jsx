@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import Header from '../Components/Header';
-import backgroundVideo from '../Assets/background.mp4';
+import backgroundVideo from '../assets/background.mp4';
 
 const AnimatedText = ({ text, className, delay = 0 }) => {
   const characters = text.split('');
