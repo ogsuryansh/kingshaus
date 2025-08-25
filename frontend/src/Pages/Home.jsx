@@ -177,7 +177,7 @@ const Home = () => {
     <div className="relative">
       <Header />
       
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="relative md:sticky md:top-0 h-screen overflow-auto md:overflow-hidden">
         <OptimizedVideo
           mp4Src={backgroundVideo}
           posterSrc={videoPoster}
@@ -192,9 +192,9 @@ const Home = () => {
 
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-        <div className="relative flex flex-col items-start justify-start min-h-screen px-6 pt-32">
+        <div className="relative flex flex-col items-start justify-end min-h-screen px-6 pb-32">
           <div
-            className="max-w-7xl ml-8 md:ml-16 lg:ml-24 mt-20 animate-fade-in-up"
+            className="max-w-7xl ml-4 md:ml-16 lg:ml-24 animate-fade-in-up"
             style={{ 
               animation: 'fadeInUp 1s ease-out 0.5s both'
             }}
@@ -234,7 +234,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="absolute bottom-12 left-8 z-20">
+        <div className="absolute bottom-20 left-4 md:left-8 z-20">
           <button
             onClick={scrollToNextSection}
             className="relative group hover:scale-105 active:scale-95 transition-transform duration-200"
@@ -243,9 +243,9 @@ const Home = () => {
             }}
           >
             
-            <div className="border-2 border-white rounded-full p-3 bg-black/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 shadow-lg">
+            <div className="border-2 border-white rounded-full p-2 bg-black/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 shadow-lg">
               <svg
-                className="w-6 h-6 text-white"
+                className="w-4 h-4 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
