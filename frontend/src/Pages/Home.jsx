@@ -16,9 +16,9 @@ const AnimatedText = ({ text, className, delay = 0 }) => {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{
-            duration: 0.6,
-            delay: delay + (index * 0.1),
-            ease: "easeOut"
+            duration: 0.8,
+            delay: delay + (index * 0.08),
+            ease: [0.4, 0, 0.2, 1]
           }}
           style={{ 
             display: 'inline-block',
@@ -148,7 +148,7 @@ const Home = () => {
         viewBox="0 0 341 526"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute transition-all duration-100"
+        className="absolute transition-all duration-300"
         style={{
           transform: `translate(${transform.x}px, ${transform.y}px)`,
           opacity: transform.opacity
@@ -206,7 +206,7 @@ const Home = () => {
           <div
             className="max-w-7xl ml-4 md:ml-16 lg:ml-24 animate-fade-in-up"
             style={{ 
-              animation: 'fadeInUp 1s ease-out 0.5s both'
+              animation: 'fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) 0.5s both'
             }}
           >
             <div
@@ -236,7 +236,7 @@ const Home = () => {
                 fontFamily: "'Montserrat', sans-serif",
                 fontWeight: 500,
                 textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.4)',
-                animation: 'fadeInUp 1s ease-out 2.2s both'
+                animation: 'fadeInUp 1.5s cubic-bezier(0.4, 0, 0.2, 1) 2.2s both'
               }}
             >
               OFFSITE PRODUCTION OF WORLD-LEADING HOMES FOR FORWARD-THINKING DEVELOPERS
@@ -247,9 +247,9 @@ const Home = () => {
         <div className="absolute bottom-20 left-4 md:left-8 z-20">
           <button
             onClick={scrollToNextSection}
-            className="relative group hover:scale-105 active:scale-95 transition-transform duration-200"
+            className="relative group hover:scale-105 active:scale-95 transition-transform duration-400"
             style={{ 
-              animation: 'fadeInUp 0.8s ease-out 2.8s both'
+              animation: 'fadeInUp 1.2s cubic-bezier(0.4, 0, 0.2, 1) 2.8s both'
             }}
           >
             
@@ -289,18 +289,18 @@ const Home = () => {
               <div
                 className="space-y-8 overflow-hidden animate-fade-in-left"
                 style={{ 
-                  animation: 'fadeInLeft 0.8s ease-out both'
+                  animation: 'fadeInLeft 1.2s cubic-bezier(0.4, 0, 0.2, 1) both'
                 }}
               >
                 <h2 
-                  className="text-4xl md:text-5xl font-bold text-black leading-tight hover:scale-105 hover:translate-x-2 transition-transform duration-300" 
+                  className="text-4xl md:text-5xl font-bold text-black leading-tight hover:scale-105 hover:translate-x-2 transition-transform duration-500" 
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   A better, faster way to build homes
                 </h2>
                 
                 <p 
-                  className="text-lg text-black/80 leading-relaxed max-w-lg hover:translate-x-2 transition-transform duration-300" 
+                  className="text-lg text-black/80 leading-relaxed max-w-lg hover:translate-x-2 transition-transform duration-500" 
                   style={{ fontFamily: "'Inter', sans-serif" }}
                 >
                   By pre-constructing our homes offsite, we save valuable resources including time, energy, and manpower. This maximises efficiency, reduces costs and guarantees their quality.
@@ -309,14 +309,14 @@ const Home = () => {
                 <div className="flex flex-col sm:flex-row gap-6 pt-4">
                   <a 
                     href="#partner"
-                    className="text-black font-medium underline underline-offset-4 hover:no-underline hover:translate-x-4 hover:scale-105 transition-all duration-300 text-lg"
+                    className="text-black font-medium underline underline-offset-4 hover:no-underline hover:translate-x-4 hover:scale-105 transition-all duration-500 text-lg"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     PARTNER WITH US
                   </a>
                   <a 
                     href="#learn"
-                    className="text-black font-medium underline underline-offset-4 hover:no-underline hover:translate-x-4 hover:scale-105 transition-all duration-300 text-lg"
+                    className="text-black font-medium underline underline-offset-4 hover:no-underline hover:translate-x-4 hover:scale-105 transition-all duration-500 text-lg"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     LEARN MORE
@@ -341,7 +341,7 @@ const Home = () => {
                  style={{
                    backgroundImage: 'url(https://images.unsplash.com/photo-1503387762-592deb58ef4e)',
                    clipPath: rectScrollY >= 1 ? 'none' : `inset(${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% round ${12 - rectScrollY * 12}px)`,
-                   transition: 'clip-path 0.1s ease-out'
+                   transition: 'clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                  }}
                />
                
@@ -350,7 +350,7 @@ const Home = () => {
                  className="absolute inset-0 bg-black bg-opacity-40"
                  style={{
                    clipPath: rectScrollY >= 1 ? 'none' : `inset(${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% round ${12 - rectScrollY * 12}px)`,
-                   transition: 'clip-path 0.1s ease-out'
+                   transition: 'clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                  }}
                />
               
@@ -373,7 +373,7 @@ const Home = () => {
                  className="absolute inset-0 flex items-center justify-center"
                  style={{
                    clipPath: rectScrollY >= 1 ? 'none' : `inset(${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% round ${12 - rectScrollY * 12}px)`,
-                   transition: 'clip-path 0.1s ease-out'
+                   transition: 'clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
                  }}
                >
                 <h2 
