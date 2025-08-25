@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -10,6 +11,12 @@ const Header = () => {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+
+  const tooltipContent = {
+    'build-smarter': 'By pre-constructing our homes offsite, we save valuable resources.',
+    'sustainability': 'We can lower the carbon footprint of home construction by 80%.',
+    'about': 'Kingshaus has been developing quality homes for over 75 years.'
   };
 
   return (
@@ -38,36 +45,44 @@ const Header = () => {
             </motion.div>
 
             <div className="hidden lg:block">
-              <motion.div 
-                className="bg-white shadow-lg rounded-lg px-4 py-2"
-                initial={{ opacity: 0, scale: 0.8, y: -20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
-              >
+                             <motion.div 
+                 className={`bg-white shadow-lg px-4 py-2 relative ${hoveredItem ? 'rounded-t-lg' : 'rounded-lg'}`}
+                 initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                 animate={{ opacity: 1, scale: 1, y: 0 }}
+                 transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                 onMouseEnter={() => setHoveredItem('sustainability')}
+                 onMouseLeave={() => setHoveredItem(null)}
+               >
                 <div className="flex items-center space-x-6">
+                  {/* Build Smarter */}
                   <motion.a 
                     href="#build-smarter" 
-                    className="font-medium text-xs uppercase tracking-wide px-1 py-0.5 text-gray-600 hover:text-black hover:font-bold transition-colors duration-300"
+                    className="font-bold text-xs uppercase tracking-wide px-1 py-0.5 text-gray-600 hover:text-black transition-colors duration-300"
                     whileHover={{ y: -1 }}
                     transition={{ duration: 0.2 }}
+                    onMouseEnter={() => setHoveredItem('build-smarter')}
                   >
                     Build Smarter
                   </motion.a>
 
+                  {/* Sustainability */}
                   <motion.a 
                     href="#sustainability" 
-                    className="font-medium text-xs uppercase tracking-wide px-1 py-0.5 text-gray-600 hover:text-black hover:font-bold transition-colors duration-300"
+                    className="font-bold text-xs uppercase tracking-wide px-1 py-0.5 text-gray-600 hover:text-black transition-colors duration-300"
                     whileHover={{ y: -1 }}
                     transition={{ duration: 0.2 }}
+                    onMouseEnter={() => setHoveredItem('sustainability')}
                   >
                     Sustainability
                   </motion.a>
 
+                  {/* About */}
                   <motion.a 
                     href="#about" 
-                    className="font-medium text-xs uppercase tracking-wide px-1 py-0.5 text-gray-600 hover:text-black hover:font-bold transition-colors duration-300"
+                    className="font-bold text-xs uppercase tracking-wide px-1 py-0.5 text-gray-600 hover:text-black transition-colors duration-300"
                     whileHover={{ y: -1 }}
                     transition={{ duration: 0.2 }}
+                    onMouseEnter={() => setHoveredItem('about')}
                   >
                     About
                   </motion.a>
@@ -82,6 +97,23 @@ const Header = () => {
                     Contact
                   </motion.button>
                 </div>
+
+                {/* Shared Tooltip */}
+                <AnimatePresence>
+                  {hoveredItem && (
+                    <motion.div
+                      className="absolute top-full left-0 right-0 z-50"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                                             <div className="bg-white text-gray-600 text-sm font-medium py-6 px-6 rounded-b-lg">
+                         {tooltipContent[hoveredItem]}
+                       </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </motion.div>
             </div>
 
