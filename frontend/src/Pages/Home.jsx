@@ -35,7 +35,9 @@ const AnimatedText = ({ text, className, delay = 0 }) => {
 const Home = () => {
   const nextSectionRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
+  const [rectScrollY, setRectScrollY] = useState(0);
   const containerRef = useRef(null);
+  const rectSectionRef = useRef(null);
 
   const scrollToNextSection = () => {
     if (nextSectionRef.current) {
@@ -45,10 +47,18 @@ const Home = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      // Track scroll for the second section (SVG animation)
       if (containerRef.current) {
         const rect = containerRef.current.getBoundingClientRect();
         const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / (window.innerHeight + rect.height)));
         setScrollY(scrollProgress);
+      }
+      
+      // Track scroll for the rectangular reveal section
+      if (rectSectionRef.current) {
+        const rect = rectSectionRef.current.getBoundingClientRect();
+        const scrollProgress = Math.max(0, Math.min(1, (window.innerHeight - rect.top) / window.innerHeight));
+        setRectScrollY(scrollProgress);
       }
     };
 
@@ -144,22 +154,22 @@ const Home = () => {
           opacity: transform.opacity
         }}
       >
-        {layer.paths.map((path, pathIndex) => (
-          <path
-            key={pathIndex}
-            d={path}
-            fill="white"
-            stroke="#1C1C1B"
-            strokeWidth="0.5"
-            strokeLinejoin="round"
-          />
-        ))}
+                 {layer.paths.map((path, pathIndex) => (
+           <path
+             key={pathIndex}
+             d={path}
+             fill="white"
+             stroke="#000000"
+             strokeWidth="1"
+             strokeLinejoin="round"
+           />
+         ))}
         
-        <defs>
-          <pattern id={`dots-${layerIndex}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-            <circle cx="10" cy="10" r="1" fill="#1C1C1B" opacity="0.3"/>
-          </pattern>
-        </defs>
+                 <defs>
+           <pattern id={`dots-${layerIndex}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+             <circle cx="10" cy="10" r="1" fill="#000000" opacity="0.8"/>
+           </pattern>
+         </defs>
         
         <rect
           x="0"
@@ -263,7 +273,7 @@ const Home = () => {
         </div>
       </div>
 
-      <div ref={nextSectionRef} className="relative min-h-screen bg-white overflow-hidden">
+      <div ref={nextSectionRef} className="relative min-h-screen bg-white overflow-hidden pt-20">
         <div ref={containerRef} className="relative min-h-screen overflow-hidden">
           <div className="container mx-auto px-6 py-16 overflow-hidden">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center min-h-screen relative overflow-hidden">
@@ -315,21 +325,74 @@ const Home = () => {
               </div>
             </div>
 
-            <div
-              className="text-center mt-16 animate-fade-in"
-              style={{ 
-                animation: 'fadeIn 0.8s ease-out 0.5s both'
-              }}
-            >
-              <p className="text-sm text-black/50 uppercase tracking-wider" style={{ fontFamily: "'Inter', sans-serif" }}>
-                Scroll to explode • Hover to animate
-              </p>
+            
+           </div>
+         </div>
+       </div>
+
+               {/* Scroll-triggered rectangular reveal animation section */}
+        <div ref={rectSectionRef} className="relative min-h-screen bg-white overflow-hidden">
+          <div className="relative min-h-screen bg-white">
+            {/* Rectangular mask container */}
+            <div className="relative min-h-screen flex items-center justify-center">
+                             {/* Image with mask - only visible inside rectangle */}
+               <div 
+                 className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                 style={{
+                   backgroundImage: 'url(https://images.unsplash.com/photo-1503387762-592deb58ef4e)',
+                   clipPath: rectScrollY >= 1 ? 'none' : `inset(${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% round ${12 - rectScrollY * 12}px)`,
+                   transition: 'clip-path 0.1s ease-out'
+                 }}
+               />
+               
+               {/* Dark overlay with same mask */}
+               <div 
+                 className="absolute inset-0 bg-black bg-opacity-40"
+                 style={{
+                   clipPath: rectScrollY >= 1 ? 'none' : `inset(${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% round ${12 - rectScrollY * 12}px)`,
+                   transition: 'clip-path 0.1s ease-out'
+                 }}
+               />
+              
+              {/* Text that's always visible - black on white background */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <h2 
+                  className="text-black font-bold text-center px-6 text-4xl md:text-6xl lg:text-7xl"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    letterSpacing: '0.1em',
+                    lineHeight: '1.2'
+                  }}
+                >
+                  BUILDING ON 75 YEARS EXPERIENCE
+                </h2>
+              </div>
+              
+                             {/* White text overlay with same mask - appears over the rectangle */}
+               <div 
+                 className="absolute inset-0 flex items-center justify-center"
+                 style={{
+                   clipPath: rectScrollY >= 1 ? 'none' : `inset(${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% ${40 - rectScrollY * 40}% round ${12 - rectScrollY * 12}px)`,
+                   transition: 'clip-path 0.1s ease-out'
+                 }}
+               >
+                <h2 
+                  className="text-white font-bold text-center px-6 text-4xl md:text-6xl lg:text-7xl"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    textShadow: '2px 2px 4px rgba(0, 0, 0, 0.8)',
+                    letterSpacing: '0.1em',
+                    lineHeight: '1.2'
+                  }}
+                >
+                  BUILDING ON 75 YEARS EXPERIENCE
+                </h2>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
+     </div>
+   );
+ };
 
 export default Home;

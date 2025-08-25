@@ -98,22 +98,22 @@ const Header = () => {
                   </motion.button>
                 </div>
 
-                {/* Shared Tooltip */}
-                <AnimatePresence>
-                  {hoveredItem && (
-                    <motion.div
-                      className="absolute top-full left-0 right-0 z-50"
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                                             <div className="bg-white text-gray-600 text-sm font-medium py-6 px-6 rounded-b-lg">
+                                 {/* Shared Tooltip */}
+                 <AnimatePresence>
+                   {hoveredItem && (
+                     <motion.div
+                       className="absolute top-full left-0 right-0 z-50 pointer-events-none"
+                       initial={{ opacity: 0, y: -10 }}
+                       animate={{ opacity: 1, y: 0 }}
+                       exit={{ opacity: 0, y: -10 }}
+                       transition={{ duration: 0.2 }}
+                     >
+                       <div className="bg-white text-gray-600 text-sm font-medium py-6 px-6 rounded-b-lg">
                          {tooltipContent[hoveredItem]}
                        </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                     </motion.div>
+                   )}
+                 </AnimatePresence>
               </motion.div>
             </div>
 
