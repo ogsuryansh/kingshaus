@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Header from '../Components/Header';
+import OptimizedVideo from '../Components/OptimizedVideo';
 import backgroundVideo from '../assets/background.mp4';
+import videoPoster from '../assets/video-poster.svg';
 
 const AnimatedText = ({ text, className, delay = 0 }) => {
   const characters = text.split('');
@@ -34,7 +36,6 @@ const Home = () => {
   const nextSectionRef = useRef(null);
   const [scrollY, setScrollY] = useState(0);
   const containerRef = useRef(null);
-  const [hoveredText, setHoveredText] = useState(null);
 
   const scrollToNextSection = () => {
     if (nextSectionRef.current) {
@@ -54,6 +55,14 @@ const Home = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleVideoLoad = () => {
+    // Video loaded successfully
+  };
+
+  const handleVideoError = () => {
+    // Video failed to load
+  };
 
   const getLayerTransform = (layerIndex, totalLayers) => {
     const staggerDelay = 0.08;
@@ -122,19 +131,18 @@ const Home = () => {
     const layer = wallPaths[layerIndex];
     
     return (
-      <motion.svg
+      <svg
         key={layerIndex}
         width="341"
         height="526"
         viewBox="0 0 341 526"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="absolute"
+        className="absolute transition-all duration-100"
         style={{
           transform: `translate(${transform.x}px, ${transform.y}px)`,
           opacity: transform.opacity
         }}
-        transition={{ duration: 0.1 }}
       >
         {layer.paths.map((path, pathIndex) => (
           <path
@@ -161,7 +169,7 @@ const Home = () => {
           fill={`url(#dots-${layerIndex})`}
           opacity="0.6"
         />
-      </motion.svg>
+      </svg>
     );
   };
 
@@ -170,25 +178,26 @@ const Home = () => {
       <Header />
       
       <div className="sticky top-0 h-screen overflow-hidden">
-        <video
+        <OptimizedVideo
+          mp4Src={backgroundVideo}
+          posterSrc={videoPoster}
           className="video-background"
           autoPlay
           muted
           loop
           playsInline
-        >
-          <source src={backgroundVideo} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+          onLoad={handleVideoLoad}
+          onError={handleVideoError}
+        />
 
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
         <div className="relative flex flex-col items-start justify-start min-h-screen px-6 pt-32">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.5 }}
-            className="max-w-7xl ml-8 md:ml-16 lg:ml-24 mt-20"
+          <div
+            className="max-w-7xl ml-8 md:ml-16 lg:ml-24 mt-20 animate-fade-in-up"
+            style={{ 
+              animation: 'fadeInUp 1s ease-out 0.5s both'
+            }}
           >
             <div
               className="text-5xl md:text-7xl lg:text-[90px] xl:text-[110px] font-semibold text-white mb-12 leading-[0.9] text-left uppercase tracking-[0.1em]"
@@ -211,31 +220,27 @@ const Home = () => {
               />
             </div>
 
-            <motion.p
+            <p
               className="text-sm md:text-base text-white/90 max-w-2xl uppercase tracking-[1px] leading-relaxed"
               style={{ 
                 fontFamily: "'Montserrat', sans-serif",
                 fontWeight: 500,
-                textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.4)'
+                textShadow: '1px 1px 3px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 0, 0, 0.4)',
+                animation: 'fadeInUp 1s ease-out 2.2s both'
               }}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 2.2 }}
             >
               OFFSITE PRODUCTION OF WORLD-LEADING HOMES FOR FORWARD-THINKING DEVELOPERS
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
         </div>
 
         <div className="absolute bottom-12 left-8 z-20">
-          <motion.button
+          <button
             onClick={scrollToNextSection}
-            className="relative group"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 2.8 }}
+            className="relative group hover:scale-105 active:scale-95 transition-transform duration-200"
+            style={{ 
+              animation: 'fadeInUp 0.8s ease-out 2.8s both'
+            }}
           >
             
             <div className="border-2 border-white rounded-full p-3 bg-black/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 shadow-lg">
@@ -254,7 +259,7 @@ const Home = () => {
                 />
               </svg>
             </div>
-          </motion.button>
+          </button>
         </div>
       </div>
 
@@ -271,82 +276,55 @@ const Home = () => {
                 </div>
               </div>
 
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8 }}
-                className="space-y-8 overflow-hidden"
+              <div
+                className="space-y-8 overflow-hidden animate-fade-in-left"
+                style={{ 
+                  animation: 'fadeInLeft 0.8s ease-out both'
+                }}
               >
-                <motion.h2 
-                  className="text-4xl md:text-5xl font-bold text-black leading-tight" 
+                <h2 
+                  className="text-4xl md:text-5xl font-bold text-black leading-tight hover:scale-105 hover:translate-x-2 transition-transform duration-300" 
                   style={{ fontFamily: "'Inter', sans-serif" }}
-                  onMouseEnter={() => setHoveredText('title')}
-                  onMouseLeave={() => setHoveredText(null)}
-                  whileHover={{ 
-                    scale: 1.02,
-                    x: 10,
-                    transition: { duration: 0.3 }
-                  }}
                 >
                   A better, faster way to build homes
-                </motion.h2>
+                </h2>
                 
-                <motion.p 
-                  className="text-lg text-black/80 leading-relaxed max-w-lg" 
+                <p 
+                  className="text-lg text-black/80 leading-relaxed max-w-lg hover:translate-x-2 transition-transform duration-300" 
                   style={{ fontFamily: "'Inter', sans-serif" }}
-                  onMouseEnter={() => setHoveredText('description')}
-                  onMouseLeave={() => setHoveredText(null)}
-                  whileHover={{ 
-                    x: 10,
-                    transition: { duration: 0.3 }
-                  }}
                 >
                   By pre-constructing our homes offsite, we save valuable resources including time, energy, and manpower. This maximises efficiency, reduces costs and guarantees their quality.
-                </motion.p>
+                </p>
                 
                 <div className="flex flex-col sm:flex-row gap-6 pt-4">
-                  <motion.a 
+                  <a 
                     href="#partner"
-                    className="text-black font-medium underline underline-offset-4 hover:no-underline transition-all duration-300 text-lg"
+                    className="text-black font-medium underline underline-offset-4 hover:no-underline hover:translate-x-4 hover:scale-105 transition-all duration-300 text-lg"
                     style={{ fontFamily: "'Inter', sans-serif" }}
-                    onMouseEnter={() => setHoveredText('partner')}
-                    onMouseLeave={() => setHoveredText(null)}
-                    whileHover={{ 
-                      x: 15,
-                      scale: 1.05,
-                      transition: { duration: 0.3 }
-                    }}
                   >
                     PARTNER WITH US
-                  </motion.a>
-                  <motion.a 
+                  </a>
+                  <a 
                     href="#learn"
-                    className="text-black font-medium underline underline-offset-4 hover:no-underline transition-all duration-300 text-lg"
+                    className="text-black font-medium underline underline-offset-4 hover:no-underline hover:translate-x-4 hover:scale-105 transition-all duration-300 text-lg"
                     style={{ fontFamily: "'Inter', sans-serif" }}
-                    onMouseEnter={() => setHoveredText('learn')}
-                    onMouseLeave={() => setHoveredText(null)}
-                    whileHover={{ 
-                      x: 15,
-                      scale: 1.05,
-                      transition: { duration: 0.3 }
-                    }}
                   >
                     LEARN MORE
-                  </motion.a>
+                  </a>
                 </div>
-              </motion.div>
+              </div>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="text-center mt-16"
+            <div
+              className="text-center mt-16 animate-fade-in"
+              style={{ 
+                animation: 'fadeIn 0.8s ease-out 0.5s both'
+              }}
             >
               <p className="text-sm text-black/50 uppercase tracking-wider" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Scroll to explode • Hover to animate
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </div>
