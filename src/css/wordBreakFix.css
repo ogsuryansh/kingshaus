@@ -1,0 +1,50 @@
+/* Fix for word-breaking issue in text-reveal section */
+.revealable-text__text {
+    word-break: keep-all !important;
+    word-wrap: normal !important;
+    overflow-wrap: normal !important;
+    white-space: normal !important;
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -moz-hyphens: none !important;
+    -ms-hyphens: none !important;
+}
+
+.revealable-text__letter {
+    white-space: nowrap !important;
+    display: inline-block !important;
+}
+
+.text-reveal__revealable-text {
+    word-break: keep-all !important;
+    word-wrap: normal !important;
+    overflow-wrap: normal !important;
+    white-space: normal !important;
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -moz-hyphens: none !important;
+    -ms-hyphens: none !important;
+}
+
+/* Additional fixes for text containers */
+.text-block {
+    word-break: keep-all !important;
+    word-wrap: normal !important;
+    overflow-wrap: normal !important;
+    white-space: normal !important;
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -moz-hyphens: none !important;
+    -ms-hyphens: none !important;
+}
+
+.revealable-text__text-holder {
+    word-break: keep-all !important;
+    word-wrap: normal !important;
+    overflow-wrap: normal !important;
+    white-space: normal !important;
+    hyphens: none !important;
+    -webkit-hyphens: none !important;
+    -moz-hyphens: none !important;
+    -ms-hyphens: none !important;
+}

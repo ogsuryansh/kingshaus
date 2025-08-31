@@ -1,0 +1,108 @@
+/* Text Reveal Animation Fix - Exact copy from original website */
+/* This ensures the typing animation works perfectly */
+
+.revealable-text__text-holder {
+    position: relative;
+}
+
+.revealable-text__text {
+    font-size: 1.875rem;
+    line-height: 1.2;
+    margin: 0;
+}
+
+.revealable-text__text--ghost {
+    bottom: 0;
+    left: 0;
+    opacity: .1;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.revealable-text__text--ghost .revealable-text__letter {
+    clip-path: inset(0 0 0 0);
+    -webkit-clip-path: inset(0 0 0 0);
+}
+
+.revealable-text__letter {
+    clip-path: inset(0 100% 0 0);
+    -webkit-clip-path: inset(0 100% 0 0);
+    display: inline-block;
+    white-space: pre;
+}
+
+/* Ensure spaces are properly handled */
+.revealable-text__letter:empty,
+.revealable-text__letter:blank {
+    display: inline-block;
+    width: 0.2em;
+}
+
+.revealable-text__letter--revealed {
+    clip-path: inset(0 0 0 0);
+    -webkit-clip-path: inset(0 0 0 0);
+}
+
+.text-reveal__revealable-text {
+    margin-bottom: 0;
+}
+
+.text-reveal__content-area {
+    margin-top: 1.875rem;
+}
+
+/* Responsive breakpoints - EXACT COPY FROM ORIGINAL */
+@media only screen and (min-width: 48rem) {
+    .revealable-text__text {
+        font-size: 2.5rem;
+    }
+    .text-reveal__revealable-text {
+        grid-column: 4/span 16;
+    }
+    .text-reveal__content-area {
+        grid-column: 11/-6;
+        margin-top: 2.5rem;
+    }
+}
+
+@media only screen and (min-width: 64rem) {
+    .revealable-text__text {
+        font-size: 3.125rem;
+    }
+    .text-reveal__revealable-text {
+        grid-column: 5/-5;
+    }
+    .text-reveal__content-area {
+        grid-column: 14/span 6;
+        margin-top: 3.75rem;
+    }
+}
+
+@media only screen and (min-width: 75rem) {
+    .revealable-text__text {
+        font-size: 3.75rem;
+    }
+    .text-reveal__revealable-text {
+        grid-column: 6/-6;
+    }
+    .text-reveal__content-area {
+        grid-column: 14/span 5;
+        margin-top: 4.875rem;
+    }
+}
+
+/* Ensure text is visible by default */
+.revealable-text__text--animated {
+    position: relative;
+    z-index: 2;
+}
+
+.revealable-text__text--ghost {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}

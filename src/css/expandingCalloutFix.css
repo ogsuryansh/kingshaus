@@ -1,0 +1,102 @@
+/* Exact CSS from original website for expanding callout */
+/* This ensures the rectangular reveal animation works perfectly */
+
+.expanding-callout,
+.expanding-callout__container {
+    position: relative
+}
+
+.expanding-callout__container {
+    padding-bottom: 247px;
+    padding-top: 247px
+}
+
+.expanding-callout__clipped-block {
+    bottom: 0;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1
+}
+
+.expanding-callout__asset {
+    grid-column: 1/-1;
+    grid-row: 1
+}
+
+.expanding-callout__image-holder--desktop {
+    display: none
+}
+
+.expanding-callout__heading {
+    font-size: 2.875rem;
+    font-weight: 500;
+    letter-spacing: -.14375rem;
+    line-height: .8;
+    text-align: center;
+    text-transform: uppercase
+}
+
+.expanding-callout__heading--over {
+    align-self: center;
+    color: #fff;
+    grid-row: 1;
+    position: relative;
+    z-index: 1
+}
+
+@media only screen and (min-width:48rem) {
+    .expanding-callout__container {
+        padding-bottom: 280px;
+        padding-top: 280px
+    }
+    .expanding-callout__heading {
+        font-size: 3.75rem;
+        grid-column: 5/-5;
+        letter-spacing: -.21875rem
+    }
+}
+
+@media only screen and (min-width:64rem) {
+    .expanding-callout__container {
+        padding-bottom: 290px;
+        padding-top: 300px
+    }
+    .expanding-callout__image-holder--mobile {
+        display: none
+    }
+    .expanding-callout__image-holder--desktop {
+        display: block
+    }
+    .expanding-callout__heading {
+        font-size: 5rem;
+        grid-column: 4/-4;
+        letter-spacing: -.25rem
+    }
+}
+
+@media only screen and (min-width:75rem) {
+    .expanding-callout__container {
+        padding-bottom: 320px;
+        padding-top: 330px
+    }
+    .expanding-callout__heading {
+        font-size: 6.25rem;
+        letter-spacing: -.3125rem
+    }
+}
+
+@media only screen and (min-width:85.375rem) {
+    .expanding-callout__heading {
+        grid-column: 5/-5
+    }
+}
+
+@media only screen and (min-width:100rem) {
+    .expanding-callout__heading {
+        grid-column: 6/-6
+    }
+}

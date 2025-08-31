@@ -1,0 +1,202 @@
+/* Parallax Performance Optimizations */
+
+/* Enable hardware acceleration for parallax elements */
+[data-speed] {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Optimize parallax images */
+.asset--with-parallax img {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Smooth transitions for parallax elements */
+.carousel-fading-background__image,
+.expanding-callout__image {
+  transition: transform 0.1s ease-out;
+}
+
+/* Specific fixes for expanding callout images */
+.expanding-callout__asset .asset__image {
+  height: 100% !important;
+  min-height: 100% !important;
+  width: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+.expanding-callout__image-holder--desktop {
+  height: 100% !important;
+  min-height: 100% !important;
+  width: 100% !important;
+  position: relative !important;
+}
+
+.expanding-callout__image-holder--mobile {
+  height: 100% !important;
+  min-height: 100% !important;
+  width: 100% !important;
+  position: relative !important;
+}
+
+/* Additional fixes for carousel images */
+.carousel-fading-background__asset {
+  height: 120vh !important;
+  min-height: 120vh !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  position: absolute !important;
+  top: -10vh !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: -10vh !important;
+  overflow: hidden !important;
+}
+
+.carousel-fading-background__asset .asset__image {
+  height: 120vh !important;
+  min-height: 120vh !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  position: absolute !important;
+  top: -10vh !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: -10vh !important;
+  overflow: hidden !important;
+}
+
+/* Debug styles - remove these after testing */
+.carousel-fading-background__asset {
+  /* border: 2px solid red !important; */
+}
+
+.carousel-fading-background__asset .asset__image {
+  /* border: 2px solid blue !important; */
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  [data-speed] {
+    will-change: auto;
+    transform: none !important;
+  }
+  
+  .carousel-fading-background__image,
+  .expanding-callout__image {
+    transition: none;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  [data-speed] {
+    /* Reduce parallax intensity on mobile for better performance */
+    transform: translateZ(0);
+  }
+}
+
+/* Performance optimizations for parallax containers */
+.carousel-fading-background__asset,
+.expanding-callout__asset {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Ensure smooth scrolling */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* Prevent horizontal scrolling on body */
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Optimize for 60fps animations */
+.asset--with-parallax {
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Simple and direct carousel background fix */
+
+/* Remove the gray background */
+.carousel-fading-background {
+  background-color: transparent !important;
+  overflow: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+}
+
+/* Override the main CSS file rules */
+.carousel-fading-background__asset {
+  height: 120vh !important;
+  min-height: 120vh !important;
+  top: -10vh !important;
+  bottom: -10vh !important;
+}
+
+/* Override the asset image rules */
+.carousel-fading-background__asset .asset__image {
+  height: 120vh !important;
+  min-height: 120vh !important;
+  top: -10vh !important;
+  bottom: -10vh !important;
+  object-fit: cover !important;
+}
+
+/* Ensure image holders stretch properly */
+.carousel-fading-background__image-holder--desktop,
+.carousel-fading-background__image-holder--mobile {
+  height: 120vh !important;
+  min-height: 120vh !important;
+}
+
+/* Fix content overflow - add bottom margin to keep content within image boundaries */
+.carousel-fading-background__content-holder {
+  margin-bottom: 80px !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Ensure the container has proper bottom spacing and NO TOP PADDING */
+.carousel-fading-background__container {
+  padding-top: 0 !important;
+  padding-bottom: 100px !important;
+  position: relative !important;
+  z-index: 1 !important;
+  margin-top: 0 !important;
+}
+
+/* Additional overrides to remove any top spacing */
+.carousel-fading-background.module {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.carousel-fading-background.home-page__carousel-fading-background {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  --flow-space: 0 !important;
+}
+
+/* Ensure the section itself has no top margin or padding */
+section.carousel-fading-background {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
